@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学习平台 - 探索知识的无限可能</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2ecc71;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-text: #777;
+            --background-color: #f9f9f9;
+            --white: #ffffff;
+            --border-color: #e0e0e0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .hero .btn {
+            margin: 10px;
+        }
+
+        /* 特色区域 */
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: var(--light-text);
+        }
+
+        /* 热门课程 */
+        .courses {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .course-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--white);
+        }
+
+        .course-content {
+            padding: 25px;
+        }
+
+        .course-category {
+            display: inline-block;
+            background-color: #e3f2fd;
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .course-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .course-card p {
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .course-rating {
+            color: #ff9800;
+        }
+
+        /* 学习路径 */
+        .learning-paths {
+            padding: 100px 0;
+        }
+
+        .paths-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .path-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 30px;
+            display: flex;
+            gap: 30px;
+            transition: var(--transition);
+        }
+
+        .path-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .path-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            min-width: 80px;
+        }
+
+        .path-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .path-content p {
+            color: var(--light-text);
+            margin-bottom: 20px;
+        }
+
+        .path-courses {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .path-course-tag {
+            background-color: #f0f0f0;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-color);
+        }
+
+        /* 学员反馈 */
+        .testimonials {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-quote {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--text-color);
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+
+        /* 注册区域 */
+        .cta {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--text-color);
+            color: var(--white);
+            padding: 60px 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #444;
+            margin-top: 40px;
+            padding-top: 20px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .path-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .path-icon {
+                margin: 0 auto;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* 滚动效果 */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">学习平台</a>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#courses">课程</a></li>
+                    <li><a href="#paths">学习路径</a></li>
+                    <li><a href="#resources">资源</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="#login" class="btn btn-secondary">登录</a>
+                    <a href="#register" class="btn btn-primary">注册</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="fade-in">探索知识的无限可能</h1>
+            <p class="fade-in">加入我们的学习社区，开启你的学习之旅，掌握未来所需的技能</p>
+            <div class="fade-in">
+                <a href="#courses" class="btn btn-primary">浏览课程</a>
+                <a href="#register" class="btn btn-secondary">免费注册</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特色功能 -->
+    <section class="features">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>我们的特色</h2>
+                <p>为你提供全方位的学习体验，帮助你实现学习目标</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">📚</div>
+                    <h3>丰富的课程内容</h3>
+                    <p>涵盖多个领域的优质课程，由行业专家精心打造</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">🎯</div>
+                    <h3>个性化学习路径</h3>
+                    <p>根据你的目标和兴趣，定制专属的学习计划</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">👥</div>
+                    <h3>活跃的学习社区</h3>
+                    <p>与同学和导师互动，分享学习经验和资源</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">📱</div>
+                    <h3>随时随地学习</h3>
+                    <p>支持多种设备，让学习不受时间和地点的限制</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">📊</div>
+                    <h3>学习进度跟踪</h3>
+                    <p>实时了解你的学习情况，调整学习策略</p>
+                </div>
+                <div class="feature-card scroll-reveal">
+                    <div class="feature-icon">🏆</div>
+                    <h3>认证证书</h3>
+                    <p>完成课程后获得认证证书，提升你的竞争力</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 热门课程 -->
+    <section id="courses" class="courses">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>热门课程</h2>
+                <p>精心挑选的优质课程，满足你的学习需求</p>
+            </div>
+            <div class="courses-grid">
+                <div class="course-card scroll-reveal">
+                    <div class="course-image">📊</div>
+                    <div class="course-content">
+                        <span class="course-category">数据分析</span>
+                        <h3>商务数据分析基础</h3>
+                        <p>学习数据分析的基本概念和方法，掌握数据处理和可视化技能</p>
+                        <div class="course-meta">
+                            <span class="course-rating">⭐ 4.8 (120)</span>
+                            <span>30小时课程</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card scroll-reveal">
+                    <div class="course-image">💻</div>
+                    <div class="course-content">
+                        <span class="course-category">编程</span>
+                        <h3>Python编程入门</h3>
+                        <p>从零基础开始学习Python编程，掌握数据分析和自动化技能</p>
+                        <div class="course-meta">
+                            <span class="course-rating">⭐ 4.9 (250)</span>
+                            <span>40小时课程</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card scroll-reveal">
+                    <div class="course-image">📈</div>
+                    <div class="course-content">
+                        <span class="course-category">商业</span>
+                        <h3>市场营销策略</h3>
+                        <p>学习现代市场营销理论和实践，掌握数字营销技能</p>
+                        <div class="course-meta">
+                            <span class="course-rating">⭐ 4.7 (180)</span>
+                            <span>25小时课程</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card scroll-reveal">
+                    <div class="course-image">🎨</div>
+                    <div class="course-content">
+                        <span class="course-category">设计</span>
+                        <h3>UI/UX设计基础</h3>
+                        <p>学习用户界面和用户体验设计的基本原理和实践</p>
+                        <div class="course-meta">
+                            <span class="course-rating">⭐ 4.8 (150)</span>
+                            <span>35小时课程</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card scroll-reveal">
+                    <div class="course-image">📱</div>
+                    <div class="course-content">
+                        <span class="course-category">移动开发</span>
+                        <h3>App开发入门</h3>
+                        <p>学习移动应用开发的基本概念和技术，构建自己的应用</p>
+                        <div class="course-meta">
+                            <span class="course-rating">⭐ 4.6 (100)</span>
+                            <span>45小时课程</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-card scroll-reveal">
+                    <div class="course-image">🔒</div>
+                    <div class="course-content">
+                        <span class="course-category">网络安全</span>
+                        <h3>网络安全基础</h3>
+                        <p>学习网络安全的基本概念和防护措施，保护个人和企业信息安全</p>
+                        <div class="course-meta">
+                            <span class="course-rating">⭐ 4.9 (90)</span>
+                            <span>30小时课程</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学习路径 -->
+    <section id="paths" class="learning-paths">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>学习路径</h2>
+                <p>为不同目标和背景的学习者设计的结构化学习计划</p>
+            </div>
+            <div class="paths-container">
+                <div class="path-card scroll-reveal">
+                    <div class="path-icon">📊</div>
+                    <div class="path-content">
+                        <h3>数据分析专家路径</h3>
+                        <p>从基础到高级，全面掌握数据分析技能，成为数据驱动决策的专家</p>
+                        <div class="path-courses">
+                            <span class="path-course-tag">数据分析基础</span>
+                            <span class="path-course-tag">SQL基础</span>
+                            <span class="path-course-tag">Python数据分析</span>
+                            <span class="path-course-tag">数据可视化</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="path-card scroll-reveal">
+                    <div class="path-icon">💻</div>
+                    <div class="path-content">
+                        <h3>全栈开发路径</h3>
+                        <p>学习前端和后端开发技术，成为能够独立开发完整应用的全栈工程师</p>
+                        <div class="path-courses">
+                            <span class="path-course-tag">HTML/CSS基础</span>
+                            <span class="path-course-tag">JavaScript基础</span>
+                            <span class="path-course-tag">后端开发</span>
+                            <span class="path-course-tag">数据库设计</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="path-card scroll-reveal">
+                    <div class="path-icon">📈</div>
+                    <div class="path-content">
+                        <h3>数字营销路径</h3>
+                        <p>学习现代数字营销技术和策略，成为数字营销领域的专业人才</p>
+                        <div class="path-courses">
+                            <span class="path-course-tag">营销基础</span>
+                            <span class="path-course-tag">社交媒体营销</span>
+                            <span class="path-course-tag">内容营销</span>
+                            <span class="path-course-tag">数据分析</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 学员反馈 -->
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title scroll-reveal">
+                <h2>学员反馈</h2>
+                <p>听听我们的学员怎么说</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card scroll-reveal">
+                    <p class="testimonial-quote">"这个学习平台改变了我的职业轨迹。课程内容非常实用，讲师讲解清晰，学习社区也很活跃。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">李</div>
+                        <div class="author-info">
+                            <h4>李明</h4>
+                            <p>数据分析师</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <p class="testimonial-quote">"学习路径的设计非常合理，让我能够系统地学习所需的技能。现在我已经成功转型为前端开发工程师。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">王</div>
+                        <div class="author-info">
+                            <h4>王芳</h4>
+                            <p>前端开发工程师</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card scroll-reveal">
+                    <p class="testimonial-quote">"平台的课程质量很高，内容更新及时，非常适合职场人士提升技能。我已经推荐给了很多同事。"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">张</div>
+                        <div class="author-info">
+                            <h4>张伟</h4>
+                            <p>市场经理</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 注册区域 -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="scroll-reveal">开始你的学习之旅</h2>
+            <p class="scroll-reveal">加入我们的学习社区，获取免费课程和学习资源</p>
+            <div class="scroll-reveal">
+                <a href="#register" class="btn btn-primary">立即注册</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>学习平台</h3>
+                    <p>为学习者提供优质的教育资源和学习体验</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <a href="#home">首页</a>
+                    <a href="#courses">课程</a>
+                    <a href="#paths">学习路径</a>
+                    <a href="#about">关于我们</a>
+                </div>
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <p>邮箱: contact@learningplatform.com</p>
+                    <p>电话: 400-123-4567</p>
+                    <p>地址: 北京市海淀区中关村大街1号</p>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我们</h3>
+                    <a href="#">微信公众号</a>
+                    <a href="#">微博</a>
+                    <a href="#">B站</a>
+                    <a href="#">知乎</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 学习平台 版权所有</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 滚动动画
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.scroll-reveal');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // 平滑滚动
+        function smoothScroll() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始动画
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach((element, index) => {
+                    element.style.animationDelay = `${index * 0.2}s`;
+                });
+            }, 100);
+
+            // 滚动动画
+            window.addEventListener('scroll', handleScrollAnimation);
+            
+            // 初始检查
+            handleScrollAnimation();
+            
+            // 平滑滚动
+            smoothScroll();
+        });
+    </script>
+</body>
+</html>

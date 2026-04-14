@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python基础课程 | 学习平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(76, 175, 80, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: linear-gradient(90deg, #4CAF50, #2196F3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-item a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-item a:hover {
+            color: #4CAF50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .course-header {
+            position: relative;
+            z-index: 1;
+        }
+
+        .course-title {
+            font-size: 3em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #4CAF50, #2196F3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(76, 175, 80, 0.3);
+        }
+
+        .course-subtitle {
+            font-size: 1.2em;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin: 60px 0;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #4CAF50, #2196F3, transparent);
+        }
+
+        h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 30px;
+            background: linear-gradient(180deg, #4CAF50, #2196F3);
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.5em;
+            margin: 20px 0 15px;
+            color: #2196F3;
+        }
+
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .module-card {
+            background: rgba(76, 175, 80, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(76, 175, 80, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.2);
+            border-color: #4CAF50;
+        }
+
+        .module-card h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .topic-list {
+            list-style-type: none;
+            margin-top: 15px;
+        }
+
+        .topic-list li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+            color: #ccc;
+        }
+
+        .topic-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(33, 150, 243, 0.2));
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 25px;
+            color: #4CAF50;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.4), rgba(33, 150, 243, 0.4));
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+            transform: scale(1.05);
+        }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #4CAF50;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+            border-top: 1px solid rgba(76, 175, 80, 0.1);
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .course-title {
+                font-size: 2em;
+            }
+
+            section {
+                padding: 25px;
+            }
+
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                gap: 15px;
+            }
+
+            .nav-container {
+                padding: 0 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles" id="particles"></div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Python基础课程</div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#home">首页</a></li>
+                <li class="nav-item"><a href="#introduction">课程简介</a></li>
+                <li class="nav-item"><a href="#modules">课程模块</a></li>
+                <li class="nav-item"><a href="#objectives">学习目标</a></li>
+                <li class="nav-item"><a href="index.html">返回主页</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <header id="home">
+            <div class="course-header">
+                <h1 class="course-title">Python基础课程</h1>
+                <p class="course-subtitle">从零开始学习Python编程，培养基础编程素养</p>
+            </div>
+        </header>
+
+        <section id="introduction">
+            <h2>课程简介</h2>
+            <p>本课程面向Python初学者，专注于培养基础编程素养，重点讲解Python基础语法。通过简洁明了的内容和实用的示例，帮助你快速掌握Python编程的核心概念，为后续的学习和应用打下坚实基础。</p>
+        </section>
+
+        <section id="modules">
+            <h2>课程模块</h2>
+            <div class="module-grid">
+                <div class="module-card">
+                    <h3>模块一：Python入门</h3>
+                    <p>了解Python的基本概念和开发环境搭建。</p>
+                    <ul class="topic-list">
+                        <li>Python简介</li>
+                        <li>安装与配置</li>
+                        <li>开发环境选择</li>
+                        <li>第一个Python程序</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <h3>模块二：基础语法</h3>
+                    <p>学习Python的基本语法规则。</p>
+                    <ul class="topic-list">
+                        <li>变量与赋值</li>
+                        <li>基本数据类型</li>
+                        <li>运算符</li>
+                        <li>注释</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <h3>模块三：控制流</h3>
+                    <p>掌握Python的条件判断和循环结构。</p>
+                    <ul class="topic-list">
+                        <li>if语句</li>
+                        <li>for循环</li>
+                        <li>while循环</li>
+                        <li>循环控制语句</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <h3>模块四：函数基础</h3>
+                    <p>学习函数的定义和使用。</p>
+                    <ul class="topic-list">
+                        <li>函数定义</li>
+                        <li>参数传递</li>
+                        <li>返回值</li>
+                        <li>内置函数</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <h3>模块五：基础数据结构</h3>
+                    <p>了解Python的常用数据结构。</p>
+                    <ul class="topic-list">
+                        <li>列表（List）</li>
+                        <li>元组（Tuple）</li>
+                        <li>字典（Dictionary）</li>
+                        <li>字符串操作</li>
+                    </ul>
+                </div>
+                
+                <div class="module-card">
+                    <h3>模块六：基础编程实践</h3>
+                    <p>通过简单项目巩固所学知识。</p>
+                    <ul class="topic-list">
+                        <li>简单计算器</li>
+                        <li>猜数字游戏</li>
+                        <li>列表操作练习</li>
+                        <li>字符串处理</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="objectives">
+            <h2>学习目标</h2>
+            <p>通过本课程的学习，你将能够：</p>
+            <ul class="topic-list">
+                <li>掌握Python的基本语法和编程规范</li>
+                <li>理解编程的基本概念和思想</li>
+                <li>能够编写简单的Python程序</li>
+                <li>具备基础的编程素养和问题解决能力</li>
+            </ul>
+        </section>
+
+        <footer>
+            <p>© 2024 Python基础课程 | 用代码创造未来</p>
+        </footer>
+    </div>
+
+    <script>
+        const particlesContainer = document.getElementById('particles');
+        
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
